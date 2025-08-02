@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Funny Combination</string>
+    <string name="main_game">Game</string>
+    <string name="main_score">High Score</string>
+    <string name="main_privacy">Privacy Policy</string>
+    <string name="main_exit">Exit</string>
+    <string name="policy">Some text placeholder</string>
+    <string name="game_emoji_01" translatable="false">😱</string>
+    <string name="game_emoji_02" translatable="false">👿</string>
+    <string name="game_emoji_03" translatable="false">😈</string>
+    <string name="game_emoji_04" translatable="false">👹</string>
+    <string name="game_emoji_05" translatable="false">👺</string>
+    <string name="wrong_answer">Wrong answer</string>
+    <string name="try_again">Try again</string>
+    <string name="main_menu">Main menu</string>
+    <string name="repeat_the_sequance">Repeat the sequance</string>
+
+</resources>

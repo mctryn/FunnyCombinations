@@ -1,0 +1,38 @@
+package com.mctryn.funnycombination.screens.game
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import com.mctryn.funnycombination.R
+
+@Composable
+fun FailScreen(
+    resultOnMainMenuClicked: () -> Unit,
+    resultTryAgain: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(8.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(stringResource(R.string.wrong_answer))
+        Button(onClick = resultTryAgain, modifier = modifier.fillMaxWidth()) {
+            Text(stringResource(R.string.try_again))
+        }
+        Button(onClick = resultOnMainMenuClicked, modifier = modifier.fillMaxWidth()) {
+            Text(stringResource(R.string.main_menu))
+        }
+    }
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Смішні комбінації</string>
+    <string name="main_game">Гра</string>
+    <string name="main_score">Дошка результатів</string>
+    <string name="main_privacy">Політика конфіденційності</string>
+    <string name="main_exit">Вихід</string>
+    <string name="policy">Місце для тексту тут</string>
+    <string name="wrong_answer">Невірна відповідь</string>
+    <string name="try_again">Спробувати знову</string>
+    <string name="main_menu">Головне меню</string>
+
+</resources>
