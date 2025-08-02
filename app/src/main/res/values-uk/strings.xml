@@ -9,5 +9,11 @@
     <string name="wrong_answer">Невірна відповідь</string>
     <string name="try_again">Спробувати знову</string>
     <string name="main_menu">Головне меню</string>
+    <string name="repeat_the_sequence">Введіть послідовність</string>
+    <string name="date">"Дата : %1$s "</string>
+    <string name="score">Очки : %1$d</string>
+    <string name="your_result">Ваш результат : %1$d</string>
+    <string name="resul_is_saved_to_score_board">Ваш результат додано до дошки рекордів</string>
+    <string name="no_high_scores_yet">Ше немає рекордів</string>
 
 </resources>

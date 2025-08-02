@@ -1,6 +1,5 @@
 package com.mctryn.funnycombination.navigation
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -14,17 +13,20 @@ import com.mctryn.funnycombination.screens.main.MainScreen
 import com.mctryn.funnycombination.screens.privacy.PrivacyScreen
 import kotlinx.serialization.Serializable
 
-@SuppressLint("ContextCastToActivity")
+
 @Composable
 fun AppNavigation(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = Main) {
-        composable<Main> { MainScreen(navController = navController) }
-        composable<Game> { GameScreen(navController = navController) }
-        composable<HighScore> { HighScoreScreen() }
-        composable<Privacy> { PrivacyScreen() }
-        composable<Exit> { (LocalContext.current as? Activity)?.finish() }
+        composable<Main> { MainScreen(navController = navController, modifier = modifier) }
+        composable<Game> { GameScreen(navController = navController, modifier = modifier) }
+        composable<HighScore> { HighScoreScreen(modifier = modifier) }
+        composable<Privacy> { PrivacyScreen(modifier = modifier) }
+        composable<Exit> {
+            val context = LocalContext.current
+            if (context is Activity) context.finish()
+        }
     }
 }
 

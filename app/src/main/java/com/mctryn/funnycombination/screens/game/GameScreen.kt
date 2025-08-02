@@ -7,7 +7,11 @@ import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun GameScreen(gameViewModel: GameViewModel = koinViewModel(), navController: NavController, modifier: Modifier = Modifier) {
+fun GameScreen(
+    modifier: Modifier = Modifier,
+    gameViewModel: GameViewModel = koinViewModel(),
+    navController: NavController
+) {
     val state = gameViewModel.state.collectAsStateWithLifecycle().value
     val onAnimationFinished = { gameViewModel.animationFinished() }
     val onItemClicked = { resId: Int -> gameViewModel.itemClicked(resId) }
@@ -16,18 +20,26 @@ fun GameScreen(gameViewModel: GameViewModel = koinViewModel(), navController: Na
 
     when (state) {
         is GameUIState.ShowSequenceState -> ShowSequenceScreen(
-            state.sequenceList,
+            modifier = modifier,
+            sequence = state.sequenceList,
             onAnimationFinished = onAnimationFinished
         )
 
         is GameUIState.RepeatSequenceState -> EnterSequence(
+            modifier = modifier,
             chosenList = state.chosenList,
             baseElements = state.baseList,
             score = state.score,
             onItemClicked = onItemClicked
         )
 
-        is GameUIState.Result -> FailScreen(resultOnMainMenuClicked, resultTryAgain)
+        is GameUIState.Result -> FailScreen(
+            modifier = modifier,
+            savedToScoreBoard = state.savedToScoreBoard,
+            score = state.score,
+            resultOnMainMenuClicked = resultOnMainMenuClicked,
+            resultTryAgain = resultTryAgain
+        )
     }
 }
 

@@ -11,5 +11,8 @@ interface GameUIState {
         val score: Int
     ) : GameUIState
 
-    object Result : GameUIState
+    data class Result(
+        val savedToScoreBoard: Boolean,
+        val score: Int
+    ) : GameUIState
 }

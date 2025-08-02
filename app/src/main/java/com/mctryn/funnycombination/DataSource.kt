@@ -1,12 +1,17 @@
 package com.mctryn.funnycombination
 
-import java.util.Date
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class DataSource {
-    fun saveIfMoreThanPrevious(score: Int) {
-        if (scoreMap.isEmpty() || scoreMap.last().score < score) {
-            scoreMap.add(ScoreRecord(Date(), score))
+    fun saveIfMoreThanPrevious(score: Int): Boolean {
+        if ((scoreMap.isEmpty() && score != 0) || scoreMap.last().score < score) {
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            val date = LocalDate.now().format(formatter)
+            scoreMap.add(ScoreRecord(date, score))
+            return true
         }
+        return false
     }
 
     fun getAllValues(): List<ScoreRecord> {
@@ -19,6 +24,6 @@ class DataSource {
 }
 
 data class ScoreRecord(
-    val data: Date,
+    val data: String,
     val score: Int
 )

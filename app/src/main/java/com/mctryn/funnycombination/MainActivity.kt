@@ -34,4 +34,4 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-// TODO: Migrate data source to room, format date in highscore screen, annimation for ending of sequnce show
+// TODO: Migrate data source to room, annimation for ending of sequnce show

@@ -16,9 +16,11 @@ import com.mctryn.funnycombination.R
 
 @Composable
 fun FailScreen(
+    modifier: Modifier = Modifier,
+    savedToScoreBoard: Boolean,
+    score: Int,
     resultOnMainMenuClicked: () -> Unit,
-    resultTryAgain: () -> Unit,
-    modifier: Modifier = Modifier
+    resultTryAgain: () -> Unit
 ) {
     Column(
         modifier = modifier
@@ -27,6 +29,10 @@ fun FailScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        if (savedToScoreBoard) {
+            Text(stringResource(R.string.resul_is_saved_to_score_board))
+        }
+        Text(stringResource(R.string.your_result, score))
         Text(stringResource(R.string.wrong_answer))
         Button(onClick = resultTryAgain, modifier = modifier.fillMaxWidth()) {
             Text(stringResource(R.string.try_again))

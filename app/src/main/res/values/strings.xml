@@ -13,6 +13,11 @@
     <string name="wrong_answer">Wrong answer</string>
     <string name="try_again">Try again</string>
     <string name="main_menu">Main menu</string>
-    <string name="repeat_the_sequance">Repeat the sequance</string>
+    <string name="repeat_the_sequence">Repeat the sequence</string>
+    <string name="date">"Date : %1$s "</string>
+    <string name="score">Score : %1$d</string>
+    <string name="your_result">Your result : %1$d</string>
+    <string name="resul_is_saved_to_score_board">Resul is saved to score board</string>
+    <string name="no_high_scores_yet">No high scores yet</string>
 
 </resources>

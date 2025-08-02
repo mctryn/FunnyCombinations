@@ -48,7 +48,7 @@ fun Display(chosenList: List<Int>, score: Int, modifier: Modifier = Modifier) {
     ) {
         Text(text = "Score :$score")
         Spacer(modifier = modifier)
-        Text(stringResource(R.string.repeat_the_sequance))
+        Text(stringResource(R.string.repeat_the_sequence))
         Row(
             modifier = modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center

@@ -18,9 +18,9 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun MainScreen(
+    modifier: Modifier = Modifier,
     mainViewModel: MainViewModel = koinViewModel(),
-    navController: NavController,
-    modifier: Modifier = Modifier
+    navController: NavController
 ) {
 
     Column(

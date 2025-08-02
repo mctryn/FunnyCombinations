@@ -15,7 +15,7 @@ class GameRepository(
     private var sequence = generateList(bestScore)
     private var baseElements = emojis.list.map { it.resId }
 
-    fun getInitState() = CheckResult.ShouldShowEmptyCharacter(baseElements, bestScore)
+    fun getInitState() = CheckResult.ShouldShowNextCharacter(baseElements, emptyList(), bestScore)
 
     fun getInitialSequence(): List<Int> = sequence
 
@@ -41,8 +41,8 @@ class GameRepository(
             }
             return CheckResult.ShouldShowNextCharacter(baseElements, chosenList.toList(), bestScore)
         } else {
-            dataSource.saveIfMoreThanPrevious(bestScore)
-            return CheckResult.ShouldShowFail
+            val saved = dataSource.saveIfMoreThanPrevious(bestScore)
+            return CheckResult.ShouldShowFail(saved, bestScore)
         }
     }
 
@@ -57,21 +57,18 @@ class GameRepository(
 }
 
 interface CheckResult {
-    data class ShouldShowEmptyCharacter(
-        val baseItems: List<Int>,
-        val bestScore: Int
-    ) : CheckResult
-
     data class ShouldShowNextCharacter(
         val baseItems: List<Int>,
         val chosenItems: List<Int>,
         val bestScore: Int
-
     ) : CheckResult
 
     data class ShouldShowNextSequence(
         val nextSequence: List<Int>
     ) : CheckResult
 
-    object ShouldShowFail : CheckResult
+    data class ShouldShowFail(
+        val savedToScoreBoard: Boolean,
+        val score: Int
+    ) : CheckResult
 }

@@ -25,31 +25,13 @@ class GameViewModel(
     fun itemClicked(resId: Int) {
         val repositoryResult = gameRepository.itemClicked(resId)
         when (repositoryResult) {
-            is CheckResult.ShouldShowEmptyCharacter -> {
-                mutableStateFlow.value = GameUIState.RepeatSequenceState(
-                    baseList = repositoryResult.baseItems,
-                    chosenList = emptyList(),
-                    score = repositoryResult.bestScore
-                )
-            }
-
             is CheckResult.ShouldShowNextCharacter -> {
-                // TODO: find fix
-                val newState = if (mutableStateFlow.value is GameUIState.RepeatSequenceState) {
-                    (mutableStateFlow.value as GameUIState.RepeatSequenceState).copy(
-                        baseList = repositoryResult.baseItems,
-                        chosenList = repositoryResult.chosenItems,
-                        score = repositoryResult.bestScore
-                    )
-                } else {
-                    GameUIState.RepeatSequenceState(
-                        baseList = repositoryResult.baseItems,
-                        chosenList = repositoryResult.chosenItems,
+                mutableStateFlow.value =  GameUIState.RepeatSequenceState(
+                        baseList = repositoryResult.baseItems.toList(),
+                        chosenList = repositoryResult.chosenItems.toList(),
                         score = repositoryResult.bestScore
                     )
                 }
-                mutableStateFlow.value = newState
-            }
 
             is CheckResult.ShouldShowNextSequence -> {
                 mutableStateFlow.value = GameUIState.ShowSequenceState(
@@ -58,7 +40,7 @@ class GameViewModel(
             }
 
             is CheckResult.ShouldShowFail -> {
-                mutableStateFlow.value = GameUIState.Result
+                mutableStateFlow.value = GameUIState.Result(repositoryResult.savedToScoreBoard, repositoryResult.score)
             }
         }
     }
