@@ -33,5 +33,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-// TODO: Migrate data source to room, annimation for ending of sequnce show

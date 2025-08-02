@@ -1,13 +1,28 @@
 package com.mctryn.funnycombination.screens.highscore
 
 import androidx.lifecycle.ViewModel
-import com.mctryn.funnycombination.DataSource
-import com.mctryn.funnycombination.ScoreRecord
+import androidx.lifecycle.viewModelScope
+import com.mctryn.funnycombination.data.ScoreBoardRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 class HighScoreViewModel(
-    private val dataSource: DataSource
+    private val scoreBoardRepository: ScoreBoardRepository
 ) : ViewModel() {
-    fun getHighScore(): List<ScoreRecord> {
-        return dataSource.getAllValues().sortedByDescending { it.score }
+
+    private val mutableStateFlow =
+        MutableStateFlow<HighScoreUiState>(HighScoreUiState.NoHighScoreState)
+    val state = mutableStateFlow.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            val scores = scoreBoardRepository.getAllValues().sortedByDescending { it.score }
+            if (scores.isEmpty()) {
+                mutableStateFlow.value = HighScoreUiState.NoHighScoreState
+            } else {
+                mutableStateFlow.value = HighScoreUiState.HighScoreState(scores)
+            }
+        }
     }
 }

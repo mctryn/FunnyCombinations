@@ -11,6 +11,8 @@ composeBom = "2024.09.00"
 splashscreen = "1.0.1"
 nav_version = "2.9.3"
 koin_version = "4.1.0"
+room_version = "2.7.2"
+kotlin_ksp = "2.0.21-1.0.25"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -33,10 +35,15 @@ koin_core = { group = "io.insert-koin", name = "koin-androidx-compose", version.
 koin_navigation = { group = "io.insert-koin", name = "koin-androidx-compose-navigation", version.ref = "koin_version" }
 koin-test = { module = "io.insert-koin:koin-test-junit4", version.ref = "koin_version" }
 koin-android-test = { module = "io.insert-koin:koin-android-test", version.ref = "koin_version" }
+room-core = { group = "androidx.room", name = "room-runtime", version.ref = "room_version" }
+room-ksp = { group = "androidx.room", name = "room-compiler", version.ref = "room_version" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room_version" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin_ksp" }
+kotlin-room = { id = "androidx.room", version.ref = "room_version" }
 

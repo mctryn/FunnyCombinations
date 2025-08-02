@@ -1,4 +1,6 @@
-package com.mctryn.funnycombination
+package com.mctryn.funnycombination.data
+
+import com.mctryn.funnycombination.R
 
 data class Emoji(
     val id: Int,

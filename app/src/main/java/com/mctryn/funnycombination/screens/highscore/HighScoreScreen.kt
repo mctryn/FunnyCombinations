@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mctryn.funnycombination.R
 import org.koin.androidx.compose.koinViewModel
 
@@ -18,25 +19,32 @@ fun HighScoreScreen(
     modifier: Modifier = Modifier,
     highScoreViewModel: HighScoreViewModel = koinViewModel()
 ) {
-    val records = highScoreViewModel.getHighScore()
+    val records = highScoreViewModel.state.collectAsStateWithLifecycle().value
 
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (records.isEmpty()){
-            Text(stringResource(R.string.no_high_scores_yet))
-        }
-        records.forEach { record ->
-            Row(
-                modifier = modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text(text = stringResource(R.string.date, record.data))
-                Text(text = stringResource(R.string.score, record.score))
+        when (records) {
+            is HighScoreUiState.NoHighScoreState -> {
+                Text(stringResource(R.string.no_high_scores_yet))
+            }
+
+            is HighScoreUiState.HighScoreState -> {
+                records.scores.forEach { record ->
+                    Row(
+                        modifier = modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Text(text = stringResource(R.string.date, record.data))
+                        Text(text = stringResource(R.string.score, record.score))
+                    }
+                }
             }
         }
+
     }
 
 }

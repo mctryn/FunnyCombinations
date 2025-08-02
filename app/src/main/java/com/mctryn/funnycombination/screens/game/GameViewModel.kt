@@ -1,8 +1,10 @@
 package com.mctryn.funnycombination.screens.game
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 class GameViewModel(
     private val gameRepository: GameRepository
@@ -23,24 +25,29 @@ class GameViewModel(
     }
 
     fun itemClicked(resId: Int) {
-        val repositoryResult = gameRepository.itemClicked(resId)
-        when (repositoryResult) {
-            is CheckResult.ShouldShowNextCharacter -> {
-                mutableStateFlow.value =  GameUIState.RepeatSequenceState(
+        viewModelScope.launch {
+            val repositoryResult = gameRepository.itemClicked(resId)
+            when (repositoryResult) {
+                is CheckResult.ShouldShowNextCharacter -> {
+                    mutableStateFlow.value = GameUIState.RepeatSequenceState(
                         baseList = repositoryResult.baseItems.toList(),
                         chosenList = repositoryResult.chosenItems.toList(),
                         score = repositoryResult.bestScore
                     )
                 }
 
-            is CheckResult.ShouldShowNextSequence -> {
-                mutableStateFlow.value = GameUIState.ShowSequenceState(
-                    repositoryResult.nextSequence
-                )
-            }
+                is CheckResult.ShouldShowNextSequence -> {
+                    mutableStateFlow.value = GameUIState.ShowSequenceState(
+                        repositoryResult.nextSequence
+                    )
+                }
 
-            is CheckResult.ShouldShowFail -> {
-                mutableStateFlow.value = GameUIState.Result(repositoryResult.savedToScoreBoard, repositoryResult.score)
+                is CheckResult.ShouldShowFail -> {
+                    mutableStateFlow.value = GameUIState.Result(
+                        repositoryResult.savedToScoreBoard,
+                        repositoryResult.score
+                    )
+                }
             }
         }
     }

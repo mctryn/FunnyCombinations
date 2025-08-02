@@ -1,12 +1,12 @@
 package com.mctryn.funnycombination.screens.game
 
-import com.mctryn.funnycombination.DataSource
-import com.mctryn.funnycombination.Emojis
+import com.mctryn.funnycombination.data.ScoreBoardRepository
+import com.mctryn.funnycombination.data.Emojis
 import kotlin.random.Random
 
 class GameRepository(
     private val emojis: Emojis = Emojis(),
-    private val dataSource: DataSource
+    private val scoreBoardRepository: ScoreBoardRepository
 ) {
 
     private var bestScore = 0
@@ -28,7 +28,7 @@ class GameRepository(
         return result
     }
 
-    fun itemClicked(resId: Int): CheckResult {
+    suspend fun itemClicked(resId: Int): CheckResult {
         if (sequence[chosenCount] == resId) {
             chosenList.add(resId)
             chosenCount++
@@ -41,7 +41,7 @@ class GameRepository(
             }
             return CheckResult.ShouldShowNextCharacter(baseElements, chosenList.toList(), bestScore)
         } else {
-            val saved = dataSource.saveIfMoreThanPrevious(bestScore)
+            val saved = scoreBoardRepository.saveIfMoreThanPrevious(bestScore)
             return CheckResult.ShouldShowFail(saved, bestScore)
         }
     }

@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlin.ksp)
+    alias(libs.plugins.kotlin.room)
 }
 
 android {
@@ -17,6 +19,11 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += mapOf("room.schemaLocation" to "$projectDir/schemas")
+            }
+        }
     }
 
     buildTypes {
@@ -38,6 +45,9 @@ android {
     buildFeatures {
         compose = true
     }
+    room {
+        schemaDirectory("$projectDir/schemas")
+    }
 }
 
 dependencies {
@@ -55,6 +65,9 @@ dependencies {
     implementation(libs.koin.core)
     implementation(libs.koin.navigation)
     implementation(libs.koin.test)
+    implementation(libs.room.core)
+    implementation(libs.room.ktx)
+    ksp(libs.room.ksp)
     testImplementation(libs.koin.android.test)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
