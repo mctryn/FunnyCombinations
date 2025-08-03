@@ -10,7 +10,10 @@ class ScoreBoardRepository(
 ) {
     suspend fun saveIfMoreThanPrevious(score: Int): Boolean {
         val allValues = getAllValues()
-        if ((allValues.isEmpty() && score != 0) || allValues.last().score < score) {
+        if (allValues.isEmpty() && score == 0) {
+            return false
+        }
+        if (allValues.isEmpty() || allValues.last().score < score) {
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
             val date = LocalDate.now().format(formatter)
             recordDao.insert(Record(score, date))

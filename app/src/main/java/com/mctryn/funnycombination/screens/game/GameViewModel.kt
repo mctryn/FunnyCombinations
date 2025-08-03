@@ -38,14 +38,14 @@ class GameViewModel(
 
                 is CheckResult.ShouldShowNextSequence -> {
                     mutableStateFlow.value = GameUIState.ShowSequenceState(
-                        repositoryResult.nextSequence
+                        sequenceList = repositoryResult.nextSequence
                     )
                 }
 
                 is CheckResult.ShouldShowFail -> {
                     mutableStateFlow.value = GameUIState.Result(
-                        repositoryResult.savedToScoreBoard,
-                        repositoryResult.score
+                        savedToScoreBoard = repositoryResult.savedToScoreBoard,
+                        score = repositoryResult.score
                     )
                 }
             }

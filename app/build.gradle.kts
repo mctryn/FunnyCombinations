@@ -67,6 +67,7 @@ dependencies {
     implementation(libs.koin.test)
     implementation(libs.room.core)
     implementation(libs.room.ktx)
+    implementation(libs.androidx.constraintlayout)
     ksp(libs.room.ksp)
     testImplementation(libs.koin.android.test)
     testImplementation(libs.junit)

@@ -34,10 +34,10 @@ fun FailScreen(
         }
         Text(stringResource(R.string.your_result, score))
         Text(stringResource(R.string.wrong_answer))
-        Button(onClick = resultTryAgain, modifier = modifier.fillMaxWidth()) {
+        Button(onClick = resultTryAgain, modifier = Modifier.fillMaxWidth().padding(8.dp)) {
             Text(stringResource(R.string.try_again))
         }
-        Button(onClick = resultOnMainMenuClicked, modifier = modifier.fillMaxWidth()) {
+        Button(onClick = resultOnMainMenuClicked, modifier = Modifier.fillMaxWidth().padding(8.dp)) {
             Text(stringResource(R.string.main_menu))
         }
     }

@@ -1,7 +1,6 @@
 package com.mctryn.funnycombination.screens.game
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.mctryn.funnycombination.R
 
 @Composable
@@ -26,16 +26,12 @@ fun EnterSequence(
     score: Int,
     modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(8.dp),
-        verticalArrangement = Arrangement.SpaceBetween,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Box(modifier = modifier)
+    ConstraintLayout(modifier = Modifier.fillMaxSize()) {
+        val (myComposableRef) = createRefs()
         Display(chosenList, score, modifier)
-        Input(baseElements, onItemClicked, modifier)
+        Input(baseElements, onItemClicked, Modifier.constrainAs(myComposableRef) {
+            bottom.linkTo(parent.bottom)
+        })
     }
 }
 
@@ -64,10 +60,15 @@ fun Input(
     onItemClicked: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Row(modifier = modifier.fillMaxWidth()) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.Center
+    ) {
         baseElements.forEach { element ->
-            Button({ onItemClicked(element) }, modifier.weight(1F)) {
-                Text(text = stringResource(element), fontSize = 30.sp)
+            Button({ onItemClicked(element) }, modifier.weight(0.2F)) {
+                Text(text = stringResource(element), fontSize = 20.sp)
             }
         }
 
