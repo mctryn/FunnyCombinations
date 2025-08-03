@@ -1,2 +1,2 @@
 # FunnyCombinations
-<video src='demo.webm' width=180/></>
+![Demo](https://github.com/mctryn/FunnyCombinations/blob/main/demo.webm)
