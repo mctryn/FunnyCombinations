@@ -54,7 +54,11 @@ interface GameStateChain {
             val saved = scoreBoardRepository.saveIfMoreThanPrevious(gameState.bestScore)
             val currentGameState =
                 GameStateHandler.NewGameState(gameState.baseElements).provideState()
-            return CheckResult.ShouldShowFail(currentGameState, saved)
+            return CheckResult.ShouldShowFail(
+                currentGameState,
+                savedToScoreBoard = saved,
+                score = gameState.bestScore
+            )
         }
 
     }

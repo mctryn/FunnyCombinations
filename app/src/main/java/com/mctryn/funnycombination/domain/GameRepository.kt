@@ -10,9 +10,9 @@ class GameRepository(
         GameStateHandler.NewGameState(emojis.provideResources()).provideState()
 
 
-    fun getInitState() = CheckResult.ShouldShowNextCharacter(currentGameState)
+    fun onAnimationFinished() = CheckResult.ShouldShowNextCharacter(currentGameState)
 
-    fun getInitialSequence(): List<Int> = currentGameState.sequence
+    fun getInitialState(): CheckResult = CheckResult.ShouldShowNextSequence(currentGameState)
 
     suspend fun itemClicked(resId: Int): CheckResult {
         val result = gameStateChain.check(resId, currentGameState)

@@ -9,48 +9,24 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class GameViewModel(
-    private val gameRepository: GameRepository
+    private val gameRepository: GameRepository,
+    private val mapper: CheckResult.Mapper<GameUIState>
 ) : ViewModel() {
 
     private val mutableStateFlow: MutableStateFlow<GameUIState> =
-        MutableStateFlow(GameUIState.ShowSequenceState(gameRepository.getInitialSequence()))
+        MutableStateFlow(gameRepository.getInitialState().map(mapper))
     val state = mutableStateFlow.asStateFlow()
 
     fun animationFinished() {
-        val initialAfterAnimation =
-            gameRepository.getInitState()
-        mutableStateFlow.value = GameUIState.RepeatSequenceState(
-            baseList = initialAfterAnimation.baseItems,
-            chosenList = emptyList(),
-            score = initialAfterAnimation.bestScore
-        )
+        val afterAnimation =
+            gameRepository.onAnimationFinished()
+        mutableStateFlow.value = afterAnimation.map(mapper)
     }
 
     fun itemClicked(resId: Int) {
         viewModelScope.launch {
-            val repositoryResult = gameRepository.itemClicked(resId)
-            when (repositoryResult) {
-                is CheckResult.ShouldShowNextCharacter -> {
-                    mutableStateFlow.value = GameUIState.RepeatSequenceState(
-                        baseList = repositoryResult.baseItems.toList(),
-                        chosenList = repositoryResult.chosenItems.toList(),
-                        score = repositoryResult.bestScore
-                    )
-                }
-
-                is CheckResult.ShouldShowNextSequence -> {
-                    mutableStateFlow.value = GameUIState.ShowSequenceState(
-                        sequenceList = repositoryResult.nextSequence
-                    )
-                }
-
-                is CheckResult.ShouldShowFail -> {
-                    mutableStateFlow.value = GameUIState.Result(
-                        savedToScoreBoard = repositoryResult.savedToScoreBoard,
-                        score = repositoryResult.score
-                    )
-                }
-            }
+            val checkResult = gameRepository.itemClicked(resId)
+            mutableStateFlow.value = checkResult.map(mapper)
         }
     }
 

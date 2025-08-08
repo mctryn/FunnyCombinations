@@ -5,8 +5,11 @@ import com.mctryn.funnycombination.data.Emojis
 import com.mctryn.funnycombination.data.ScoreBoardRepository
 import com.mctryn.funnycombination.data.storage.RecordDao
 import com.mctryn.funnycombination.data.storage.RecordDatabase
+import com.mctryn.funnycombination.domain.CheckResult
 import com.mctryn.funnycombination.domain.GameRepository
 import com.mctryn.funnycombination.domain.GameStateChain
+import com.mctryn.funnycombination.screens.game.GameUIState
+import com.mctryn.funnycombination.screens.game.GameUiMapper
 import com.mctryn.funnycombination.screens.game.GameViewModel
 import com.mctryn.funnycombination.screens.highscore.HighScoreViewModel
 import com.mctryn.funnycombination.screens.main.MainItemsProvider
@@ -44,6 +47,7 @@ val androidModule = module {
     }
 
     singleOf(::Emojis)
+    singleOf<CheckResult.Mapper<GameUIState>>(::GameUiMapper)
     singleOf(::MainItemsProvider)
     factoryOf(::GameRepository)
 

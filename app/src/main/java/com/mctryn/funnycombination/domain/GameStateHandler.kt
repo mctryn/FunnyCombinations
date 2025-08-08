@@ -6,13 +6,17 @@ interface GameStateHandler {
 
     fun provideState(): GameState
 
-    fun generateSequence(baseElements: List<Int>, count: Int = 0): List<Int> {
-        return listOf(
-            baseElements[Random.nextInt(
-                0,
-                baseElements.size
-            )]
-        )
+    fun generateNewSequence(baseElements: List<Int>, count: Int = 0): List<Int> {
+        val resultSequence = mutableListOf<Int>()
+        (0..count).forEach { i ->
+            resultSequence.add(
+                baseElements[Random.nextInt(
+                    0,
+                    baseElements.size
+                )]
+            )
+        }
+        return resultSequence
     }
 
     class NewGameState(private val baseElements: List<Int>) :
@@ -22,7 +26,7 @@ interface GameStateHandler {
             chosenCount = 0,
             chosenList = emptyList(),
             baseElements = baseElements,
-            sequence = generateSequence(baseElements)
+            sequence = generateNewSequence(baseElements)
         )
 
     }
@@ -36,7 +40,7 @@ interface GameStateHandler {
                 chosenCount = 0,
                 chosenList = emptyList(),
                 baseElements = gameState.baseElements,
-                sequence = generateSequence(gameState.baseElements, bestScore)
+                sequence = generateNewSequence(gameState.baseElements, bestScore)
             )
         }
     }
@@ -46,7 +50,7 @@ interface GameStateHandler {
         override fun provideState(): GameState {
             val chosenCount = gameState.chosenCount + 1
             val chosenList = gameState.chosenList.toMutableList()
-            chosenList.add(gameState.sequence[gameState.chosenCount + 1])
+            chosenList.add(gameState.sequence[gameState.chosenCount])
             return GameState(
                 bestScore = gameState.bestScore,
                 chosenCount = chosenCount,
