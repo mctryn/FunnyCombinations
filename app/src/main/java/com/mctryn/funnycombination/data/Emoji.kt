@@ -15,4 +15,5 @@ class Emojis() {
         Emoji(id = 3, R.string.game_emoji_04),
         Emoji(id = 4, R.string.game_emoji_05),
     )
+    fun provideResources() = list.map { it.resId }
 }

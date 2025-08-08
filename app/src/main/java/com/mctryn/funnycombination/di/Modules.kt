@@ -5,7 +5,8 @@ import com.mctryn.funnycombination.data.Emojis
 import com.mctryn.funnycombination.data.ScoreBoardRepository
 import com.mctryn.funnycombination.data.storage.RecordDao
 import com.mctryn.funnycombination.data.storage.RecordDatabase
-import com.mctryn.funnycombination.screens.game.GameRepository
+import com.mctryn.funnycombination.domain.GameRepository
+import com.mctryn.funnycombination.domain.GameStateChain
 import com.mctryn.funnycombination.screens.game.GameViewModel
 import com.mctryn.funnycombination.screens.highscore.HighScoreViewModel
 import com.mctryn.funnycombination.screens.main.MainItemsProvider
@@ -31,6 +32,17 @@ val androidModule = module {
     }
 
     singleOf(::ScoreBoardRepository)
+
+    single<GameStateChain> {
+        val scoreBoardRepository = get<ScoreBoardRepository>()
+        val last =
+            GameStateChain.IncorrectItemChosenChain(scoreBoardRepository)
+        val second = GameStateChain.CorrectItemChosenChain(last)
+        val first = GameStateChain.LastItemChosenChain(second)
+
+        return@single first
+    }
+
     singleOf(::Emojis)
     singleOf(::MainItemsProvider)
     factoryOf(::GameRepository)

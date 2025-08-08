@@ -2,6 +2,8 @@ package com.mctryn.funnycombination.screens.game
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mctryn.funnycombination.domain.CheckResult
+import com.mctryn.funnycombination.domain.GameRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
