@@ -21,8 +21,8 @@ fun AppNavigation(modifier: Modifier = Modifier) {
     NavHost(navController = navController, startDestination = Main) {
         composable<Main> { MainScreen(navController = navController, modifier = modifier) }
         composable<Game> { GameScreen(navController = navController, modifier = modifier) }
-        composable<HighScore> { HighScoreScreen(modifier = modifier) }
-        composable<Privacy> { PrivacyScreen(modifier = modifier) }
+        composable<HighScore> { HighScoreScreen(navController = navController, modifier = modifier) }
+        composable<Privacy> { PrivacyScreen(navController = navController, modifier = modifier) }
         composable<Exit> {
             val context = LocalContext.current
             if (context is Activity) context.finish()
