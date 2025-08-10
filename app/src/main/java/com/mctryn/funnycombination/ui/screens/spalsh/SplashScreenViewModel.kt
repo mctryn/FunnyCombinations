@@ -1,4 +1,4 @@
-package com.mctryn.funnycombination.screens.spalsh
+package com.mctryn.funnycombination.ui.screens.spalsh
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

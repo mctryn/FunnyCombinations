@@ -1,4 +1,4 @@
-package com.mctryn.funnycombination.screens.main
+package com.mctryn.funnycombination.ui.screens.main
 
 import androidx.navigation.NavController
 import com.mctryn.funnycombination.R

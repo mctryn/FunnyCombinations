@@ -10,7 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.mctryn.funnycombination.navigation.AppNavigation
-import com.mctryn.funnycombination.screens.spalsh.SplashScreenViewModel
+import com.mctryn.funnycombination.ui.screens.spalsh.SplashScreenViewModel
 import com.mctryn.funnycombination.ui.theme.FunnyCombinationTheme
 import org.koin.android.ext.android.inject
 

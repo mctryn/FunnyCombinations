@@ -1,4 +1,4 @@
-package com.mctryn.funnycombination.screens.highscore
+package com.mctryn.funnycombination.ui.screens.highscore
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

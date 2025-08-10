@@ -1,4 +1,4 @@
-package com.mctryn.funnycombination.screens.privacy
+package com.mctryn.funnycombination.ui.screens.privacy
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

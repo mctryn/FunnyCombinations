@@ -1,4 +1,4 @@
-package com.mctryn.funnycombination.screens.game
+package com.mctryn.funnycombination.ui.screens.game
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

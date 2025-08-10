@@ -1,4 +1,4 @@
-package com.mctryn.funnycombination.screens.game
+package com.mctryn.funnycombination.ui.screens.game
 
 import android.content.Context
 import android.icu.text.BreakIterator

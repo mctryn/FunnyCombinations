@@ -1,4 +1,4 @@
-package com.mctryn.funnycombination.screens.main
+package com.mctryn.funnycombination.ui.screens.game
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,18 +11,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import org.koin.compose.viewmodel.koinViewModel
+import com.mctryn.funnycombination.R
 
 @Composable
-fun MainScreen(
+fun FailScreen(
     modifier: Modifier = Modifier,
-    mainViewModel: MainViewModel = koinViewModel(),
-    navController: NavController
+    savedToScoreBoard: Boolean,
+    score: Int,
+    resultOnMainMenuClicked: () -> Unit,
+    resultTryAgain: () -> Unit
 ) {
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -30,25 +29,16 @@ fun MainScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        mainViewModel.getMenuItems().forEach { item ->
-            MainScreenItem(
-                onClick = { item.second.invoke(navController) },
-                label = stringResource(item.first)
-            )
+        if (savedToScoreBoard) {
+            Text(stringResource(R.string.resul_is_saved_to_score_board))
+        }
+        Text(stringResource(R.string.your_result, score))
+        Text(stringResource(R.string.wrong_answer))
+        Button(onClick = resultTryAgain, modifier = Modifier.fillMaxWidth().padding(8.dp)) {
+            Text(stringResource(R.string.try_again))
+        }
+        Button(onClick = resultOnMainMenuClicked, modifier = Modifier.fillMaxWidth().padding(8.dp)) {
+            Text(stringResource(R.string.main_menu))
         }
     }
-}
-
-@Composable
-fun MainScreenItem(onClick: () -> Unit, label: String, modifier: Modifier = Modifier) {
-    Button(onClick, modifier.fillMaxWidth()) {
-        Text(label)
-    }
-}
-
-@Preview
-@Composable
-private fun MainScreenMenuItemPreview() {
-    MainScreenItem({ }, "Game")
 }

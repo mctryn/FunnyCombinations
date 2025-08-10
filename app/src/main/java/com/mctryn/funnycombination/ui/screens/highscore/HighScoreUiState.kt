@@ -1,4 +1,4 @@
-package com.mctryn.funnycombination.screens.highscore
+package com.mctryn.funnycombination.ui.screens.highscore
 
 import com.mctryn.funnycombination.data.ScoreRecord
 
