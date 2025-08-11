@@ -13,7 +13,6 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun GameScreen(
-    modifier: Modifier = Modifier,
     gameViewModel: GameViewModel = koinViewModel(),
     navController: NavController
 ) {
@@ -34,13 +33,13 @@ fun GameScreen(
 
             when (state) {
                 is GameUIState.ShowSequenceState -> ShowSequenceScreen(
-                    modifier = modifier.padding((padding)),
+                    modifier = Modifier.padding((padding)),
                     sequence = state.sequenceList,
                     onAnimationFinished = onAnimationFinished
                 )
 
                 is GameUIState.RepeatSequenceState -> EnterSequence(
-                    modifier = modifier.padding((padding)),
+                    modifier = Modifier.padding((padding)),
                     chosenList = state.chosenList,
                     baseElements = state.baseList,
                     score = state.score,
@@ -48,7 +47,7 @@ fun GameScreen(
                 )
 
                 is GameUIState.Result -> FailScreen(
-                    modifier = modifier.padding((padding)),
+                    modifier = Modifier.padding((padding)),
                     savedToScoreBoard = state.savedToScoreBoard,
                     score = state.score,
                     resultOnMainMenuClicked = resultOnMainMenuClicked,
