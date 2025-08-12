@@ -5,12 +5,16 @@ import com.mctryn.funnycombination.data.Emojis
 import com.mctryn.funnycombination.data.ScoreBoardRepository
 import com.mctryn.funnycombination.data.storage.RecordDao
 import com.mctryn.funnycombination.data.storage.RecordDatabase
-import com.mctryn.funnycombination.screens.game.GameRepository
-import com.mctryn.funnycombination.screens.game.GameViewModel
-import com.mctryn.funnycombination.screens.highscore.HighScoreViewModel
-import com.mctryn.funnycombination.screens.main.MainItemsProvider
-import com.mctryn.funnycombination.screens.main.MainViewModel
-import com.mctryn.funnycombination.screens.spalsh.SplashScreenViewModel
+import com.mctryn.funnycombination.domain.CheckResult
+import com.mctryn.funnycombination.domain.GameRepository
+import com.mctryn.funnycombination.domain.GameStateChain
+import com.mctryn.funnycombination.ui.screens.game.GameUIState
+import com.mctryn.funnycombination.ui.screens.game.GameUiMapper
+import com.mctryn.funnycombination.ui.screens.game.GameViewModel
+import com.mctryn.funnycombination.ui.screens.highscore.HighScoreViewModel
+import com.mctryn.funnycombination.ui.screens.main.MainItemsProvider
+import com.mctryn.funnycombination.ui.screens.main.MainViewModel
+import com.mctryn.funnycombination.ui.screens.spalsh.SplashScreenViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
@@ -31,7 +35,19 @@ val androidModule = module {
     }
 
     singleOf(::ScoreBoardRepository)
+
+    single<GameStateChain> {
+        val scoreBoardRepository = get<ScoreBoardRepository>()
+        val last =
+            GameStateChain.IncorrectItemChosenChain(scoreBoardRepository)
+        val second = GameStateChain.CorrectItemChosenChain(last)
+        val first = GameStateChain.LastItemChosenChain(second)
+
+        return@single first
+    }
+
     singleOf(::Emojis)
+    singleOf<CheckResult.Mapper<GameUIState>>(::GameUiMapper)
     singleOf(::MainItemsProvider)
     factoryOf(::GameRepository)
 
