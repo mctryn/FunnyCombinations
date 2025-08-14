@@ -12,11 +12,11 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.mctryn.funnycombination.navigation.AppNavigation
 import com.mctryn.funnycombination.ui.screens.spalsh.SplashScreenViewModel
 import com.mctryn.funnycombination.ui.theme.FunnyCombinationTheme
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainActivity : ComponentActivity() {
-    private val viewModel: SplashScreenViewModel by inject<SplashScreenViewModel>()
+    private val viewModel: SplashScreenViewModel by viewModel()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
