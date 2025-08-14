@@ -11,7 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavHostController
 import com.mctryn.funnycombination.R
 import com.mctryn.funnycombination.ui.components.TopAppBar
 import org.koin.androidx.compose.koinViewModel
@@ -20,7 +19,7 @@ import org.koin.androidx.compose.koinViewModel
 fun HighScoreScreen(
     modifier: Modifier = Modifier,
     highScoreViewModel: HighScoreViewModel = koinViewModel(),
-    navController: NavHostController
+    onBackPressed: () -> Unit
 ) {
     val records = highScoreViewModel.state.collectAsStateWithLifecycle().value
 
@@ -29,7 +28,8 @@ fun HighScoreScreen(
             TopAppBar(
                 stringResource(R.string.app_name),
                 true,
-                { navController.popBackStack() })
+                onBackPressed
+            )
         },
         content = { padding ->
             Column(

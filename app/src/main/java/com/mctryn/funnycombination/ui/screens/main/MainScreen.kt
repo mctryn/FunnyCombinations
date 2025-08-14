@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavController
 import com.mctryn.funnycombination.R
 import com.mctryn.funnycombination.ui.components.BasicButton
@@ -22,9 +23,11 @@ fun MainScreen(
     mainViewModel: MainViewModel = koinViewModel(),
     navController: NavController
 ) {
+    val lifecycleOwner = LocalLifecycleOwner.current
+
     Scaffold(topBar = {
         TopAppBar(stringResource(R.string.app_name))
-    }, content = {padding ->
+    }, content = { padding ->
         Column(
             modifier = modifier
                 .fillMaxSize()
@@ -35,7 +38,7 @@ fun MainScreen(
 
             mainViewModel.getMenuItems().forEach { item ->
                 MainScreenItem(
-                    onClick = { item.second.invoke(navController) },
+                    onClick = { item.second.invoke(navController, lifecycleOwner) },
                     label = stringResource(item.first)
                 )
             }
@@ -43,9 +46,8 @@ fun MainScreen(
     })
 }
 
-
 @Composable
-fun MainScreenItem(onClick: () -> Unit, label: String, modifier: Modifier = Modifier) {
+fun MainScreenItem(onClick: () -> Unit, label: String) {
     BasicButton(text = label, onClick = onClick)
 }
 

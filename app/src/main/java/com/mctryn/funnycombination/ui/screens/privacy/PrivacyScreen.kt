@@ -9,18 +9,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavHostController
 import com.mctryn.funnycombination.R
 import com.mctryn.funnycombination.ui.components.TopAppBar
 
 @Composable
-fun PrivacyScreen(modifier: Modifier = Modifier, navController: NavHostController) {
+fun PrivacyScreen(modifier: Modifier = Modifier, onBackPressed: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
                 stringResource(R.string.app_name),
                 true,
-                { navController.popBackStack() })
+                onBackPressed
+            )
         },
         content = { padding ->
             Box(

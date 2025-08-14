@@ -6,7 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.mctryn.funnycombination.R
 import com.mctryn.funnycombination.ui.components.TopAppBar
 import org.koin.androidx.compose.koinViewModel
@@ -14,12 +13,12 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun GameScreen(
     gameViewModel: GameViewModel = koinViewModel(),
-    navController: NavController
+    onBackPressed: () -> Unit
 ) {
     val state = gameViewModel.state.collectAsStateWithLifecycle().value
     val onAnimationFinished = { gameViewModel.animationFinished() }
     val onItemClicked = { resId: Int -> gameViewModel.itemClicked(resId) }
-    val resultOnMainMenuClicked: () -> Unit = { navController.popBackStack() }
+    val resultOnMainMenuClicked: () -> Unit = onBackPressed
     val resultTryAgain = { gameViewModel.tryAgain() }
 
     Scaffold(
@@ -27,7 +26,7 @@ fun GameScreen(
             TopAppBar(
                 stringResource(R.string.app_name),
                 true,
-                { navController.popBackStack() })
+                onBackPressed)
         },
         content = { padding ->
 
