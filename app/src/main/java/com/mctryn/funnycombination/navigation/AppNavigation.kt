@@ -4,6 +4,7 @@ import android.app.Activity
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -12,21 +13,41 @@ import com.mctryn.funnycombination.ui.screens.highscore.HighScoreScreen
 import com.mctryn.funnycombination.ui.screens.main.MainScreen
 import com.mctryn.funnycombination.ui.screens.privacy.PrivacyScreen
 import kotlinx.serialization.Serializable
+import androidx.lifecycle.compose.currentStateAsState
+import androidx.navigation.NavController
 
 
 @Composable
 fun AppNavigation(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
+    val lifecycleOwner = LocalLifecycleOwner.current
+    lifecycleOwner.lifecycle.currentStateAsState().value
 
     NavHost(navController = navController, startDestination = Main) {
         composable<Main> { MainScreen(navController = navController, modifier = modifier) }
-        composable<Game> { GameScreen(navController = navController) }
-        composable<HighScore> { HighScoreScreen(navController = navController, modifier = modifier) }
-        composable<Privacy> { PrivacyScreen(navController = navController, modifier = modifier) }
+        composable<Game> {
+            GameScreen(onBackPressed = navigateToMainMenu(navController))
+        }
+        composable<HighScore> {
+            HighScoreScreen(onBackPressed = navigateToMainMenu(navController))
+        }
+        composable<Privacy> {
+            PrivacyScreen(onBackPressed = navigateToMainMenu(navController))
+        }
         composable<Exit> {
             val context = LocalContext.current
             if (context is Activity) context.finish()
         }
+    }
+}
+
+fun navigateToMainMenu(navController: NavController): () -> Unit {
+    return {
+        navController.popBackStack(
+            route = Main,
+            saveState = false,
+            inclusive = false
+        )
     }
 }
 
