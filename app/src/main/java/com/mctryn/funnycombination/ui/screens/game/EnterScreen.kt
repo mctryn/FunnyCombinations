@@ -52,7 +52,7 @@ fun Score(score: Int, modifier: Modifier = Modifier) {
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier.fillMaxWidth()
     ) {
-        Text(text = "Score :$score")
+        Text(text = stringResource(R.string.score, score))
     }
 }
 
